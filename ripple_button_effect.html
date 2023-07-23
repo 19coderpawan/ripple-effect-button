@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *,
+        ::before,
+        ::after{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            color:#fff;
+        }
+        
+
+        body{
+           
+            background-color: #121212;
+        }
+        
+        .ripple{
+            margin-left:500px;
+            margin-top:200px;
+            position: relative;
+            padding:30px;
+            color:#fff;
+            font-size: 20px;
+            border-radius: 100vmax;
+            background-color: transparent;
+            border: 2px solid white;
+            text-transform: uppercase;
+            overflow: hidden;
+            cursor:pointer;
+        }
+        span{
+            position: absolute;
+            border-radius: 40%;
+            font-size:10px;
+            opacity:0.5;
+            width:20em;
+            height:20em;
+            background: linear-gradient(90deg,#0162c8,#55e7fc);
+            transform:translate(-50%,-50%) scale(0);
+            animation: animate 1s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes animate{
+            100%{
+                opacity:0;
+                transform: translate(-50%, -50%) scale(1);
+
+            }
+        }
+        nav ul ,li{
+            list-style: none;
+            display:flex;
+            flex-direction: row;
+            padding-top:20px;
+            padding-left:100px;
+            margin-left:90px;
+        }
+    </style>
+</head>
+<body>
+    <button class="ripple">click me</button>
+    <h2></h2>
+    <script>
+        const button = document.querySelector('.ripple')
+        const head=document.querySelector('h2')
+        button.addEventListener("click",(event)=>{
+
+            const x=event.clientX - event.target.offsetLeft;
+            const y=event.clientY - event.target.offsetTop;
+
+            const ripples=document.createElement("span");
+            ripples.style.left=x+"px";
+            ripples.style.top=y +"px";
+            event.target.appendChild(ripples);
+
+            
+
+            setTimeout(()=>{
+                setTimeout(()=>{
+                    button.innerHTML="click me "
+                    document.body.style.background="black";
+                },1000)
+                
+                ripples.remove();
+            },1000)
+
+        })
+    </script>
+</body>
+</html>
